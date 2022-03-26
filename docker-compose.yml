@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  sro-parser-app:
+    container_name: sro-parser-app
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: .
+      dockerfile: ./src/Hosting.Web/Dockerfile
+    ports:
+      - "8080:80"
+  
