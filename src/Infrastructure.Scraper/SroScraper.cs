@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using HtmlAgilityPack;
 using SroParser.Application.Abstraction;
 using SroParser.Application.UseCases.Scraper;
@@ -36,28 +37,29 @@ public class SroScraper : ISroScraper
         var document = await _web.LoadFromWebAsync(ConfigureUrl());
 
         var rows = document.DocumentNode
-            .SelectSingleNode("//tbody")
-            .SelectNodes("//tr")
-            .Skip(2);
-        
+            .SelectSingleNode("//table//tbody");
+
         if (rows == null)
         {
             throw new NothingToScrapException();
         }
-
+        
         var scrappedMembers = new List<ScrappedSroMemberDto>();
-        foreach (var row in rows)
+        foreach (var row in rows.SelectNodes("//tr").Skip(2))
         {
-            var scrappedInfo = row.SelectNodes("//td")
-                .Take(3)
-                .Select(n => n.InnerText)
-                .ToList();
+            var item = new List<string>();
+            
+            foreach (HtmlNode cell in row.SelectNodes("th|td")) {
+                item.Add(cell.InnerText);
+            }
 
-            var test = row.SelectNodes("//td").Select(n => n.InnerText);
-
-            scrappedMembers.Add(new ScrappedSroMemberDto(
-                scrappedInfo[0], scrappedInfo[1], scrappedInfo[2])
+            var member = new ScrappedSroMemberDto(
+                item[0],
+                item[1],
+                item[2]
             );
+            
+            scrappedMembers.Add(member);
         }
 
         return scrappedMembers;
