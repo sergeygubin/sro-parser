@@ -4,13 +4,16 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>SroParser.Infrastructure.Services</RootNamespace>
+        <RootNamespace>SroParser.Infrastructure.Scraper</RootNamespace>
+        <AssemblyName>Infrastructure.Scraper</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\Application.Abstraction\Application.Abstraction.csproj" />
-      <ProjectReference Include="..\Application.UseCases\Application.UseCases.csproj" />
-      <ProjectReference Include="..\Infrastructure.Scraper\Infrastructure.Scraper.csproj" />
     </ItemGroup>
 
 </Project>
