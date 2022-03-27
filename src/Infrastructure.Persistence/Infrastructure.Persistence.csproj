@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain.Abstraction\Domain.Abstraction.csproj" />
+      <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Configuration, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\.dotnet\shared\Microsoft.AspNetCore.App\6.0.3\Microsoft.Extensions.Configuration.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

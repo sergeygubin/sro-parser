@@ -1,4 +1,5 @@
 using System.Reflection;
+using Infrastructure.Persistence;
 using Microsoft.OpenApi.Models;
 using SroParser.Application.UseCases;
 using SroParser.Infrastructure;
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConnectToDatabase(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api SroParser", Version = "v1"});

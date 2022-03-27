@@ -12,7 +12,7 @@ public class SroScraper : ISroScraper
     private string _baseUrl = "";
     private int _page = 0;
     
-    private readonly HtmlWeb _web = new HtmlWeb();
+    private readonly HtmlWeb _web = new();
 
     public void Configure(SroScraperParameters config)
     {
