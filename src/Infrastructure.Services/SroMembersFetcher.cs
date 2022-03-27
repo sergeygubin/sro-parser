@@ -18,7 +18,7 @@ public class SroMembersFetcher : ISroMembersFetcher
         _sroParser = sroParser;
     }
 
-    public async Task<List<SroMemberDto>> FetchAll()
+    public async Task<List<SroMemberDto>> FetchAllSroMembers()
     {
         var totalPages = await _sroParser.GetTotalPages();
         var sroMembers = new List<SroMemberDto>();

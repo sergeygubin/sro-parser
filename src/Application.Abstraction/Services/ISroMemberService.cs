@@ -4,6 +4,5 @@ namespace SroParser.Application.Abstraction.Services;
 
 public interface ISroMemberService
 {
-    Task<List<SroMemberDto>> Update();
-    Task<IEnumerable<SroMemberDto>> GetAllMembers();
+    Task UpdateSroMembersFromRemote();
 }

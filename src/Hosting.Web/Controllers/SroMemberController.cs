@@ -5,7 +5,7 @@ using SroParser.Application.UseCases.SroMember.Dto;
 namespace SroParser.Hosting.Web.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api")]
 [Produces("application/json")]
 public class SroMemberController
 {
@@ -17,26 +17,14 @@ public class SroMemberController
     }
 
     /// <summary>
-    /// Возвращает всех членов СРО
+    /// Получает и сохраняет всех текущих членов СРО из https://reestr.nostroy.ru/reestr
     /// </summary>
     /// <returns></returns>
-    [HttpGet("current")]
+    [HttpGet("update-sro-members")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IEnumerable<SroMemberDto>> GetAllMembers()
+    public async Task UpdateSroMembers()
     {
-        return await _sroMemberService.GetAllMembers();
-    }
-    
-    /// <summary>
-    /// Получает и сохраняет всех текущих членов СРО
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet("update")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IEnumerable<SroMemberDto>> UpdateSroMembers()
-    {
-        return await _sroMemberService.Update();
+        await _sroMemberService.UpdateSroMembersFromRemote();
     }
 }

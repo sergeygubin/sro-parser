@@ -1,3 +1,4 @@
+using Domain.Abstraction;
 using SroParser.Application.Abstraction;
 using SroParser.Application.Abstraction.Services;
 using SroParser.Application.UseCases.Scraper;
@@ -8,27 +9,19 @@ namespace SroParser.Infrastructure.Services;
 
 public class SroMemberService : ISroMemberService
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ISroMembersFetcher _fetcher;
-    public SroMemberService(ISroMembersFetcher sroMembersFetcher)
+    public SroMemberService(
+        IUnitOfWork unitOfWork,
+        ISroMembersFetcher sroMembersFetcher
+        )
     {
+        _unitOfWork = unitOfWork;
         _fetcher = sroMembersFetcher;
     }
 
-    public async Task<List<SroMemberDto>> Update()
+    public async Task UpdateSroMembersFromRemote()
     {
-        return await _fetcher.FetchAll();
-    }
-
-    public async Task<IEnumerable<SroMemberDto>> GetAllMembers()
-    {
-        var members = new List<SroMemberDto>
-        {
-            new SroMemberDto
-            {
-                Id = 1
-            }
-        };
-
-        return members;
+        await _fetcher.FetchAllSroMembers();
     }
 }
