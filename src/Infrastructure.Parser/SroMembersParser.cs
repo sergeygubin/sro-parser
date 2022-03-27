@@ -8,8 +8,6 @@ namespace Infrastructure.Parser;
 
 public class SroMembersParser : ISroParser
 {
-    private int _currentPage = 1;
-
     private readonly IMapper _mapper;
     private readonly ISroScraper _sroScraper;
 
@@ -17,24 +15,28 @@ public class SroMembersParser : ISroParser
     {
         _mapper = mapper;
         _sroScraper = sroScraper;
-
-        ReconfigureScraper();
+        
+        ReconfigureScraper(1);
     }
 
-    private void ReconfigureScraper()
+    private void ReconfigureScraper(int page)
     {
         _sroScraper.Configure(new SroScraperParameters
         {
-            BaseUrl = "https://reestr.nostroy.ru/reestr",
-            Page = _currentPage
+            BaseUrl = "https://reestr.nostroy.ru/reestr?m.fulldescription=&m.shortdescription=&m.inn=&m.ogrnip=&bms.id=1&bmt.id=&u.registrationnumber=",
+            Page = page
         });
     }
 
-    public async Task<List<SroMemberDto>> ParseNextPage()
+    public async Task<int> GetTotalPages()
     {
+        return await _sroScraper.GetTotalPages();
+    }
+
+    public async Task<List<SroMemberDto>> Parse(int page)
+    {
+        ReconfigureScraper(page);
         var scrappedMembers = await _sroScraper.ScrapSroMembers();
-        _currentPage++;
-        ReconfigureScraper();
         
         return _mapper.Map<List<ScrappedSroMemberDto>, List<SroMemberDto>>(scrappedMembers);
     }

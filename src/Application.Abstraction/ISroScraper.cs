@@ -7,4 +7,5 @@ public interface ISroScraper
 {
     void Configure(SroScraperParameters parameters);
     Task<List<ScrappedSroMemberDto>> ScrapSroMembers();
+    Task<int> GetTotalPages();
 }

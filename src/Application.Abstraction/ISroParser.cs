@@ -5,5 +5,6 @@ namespace SroParser.Application.Abstraction;
 
 public interface ISroParser
 {
-    Task<List<SroMemberDto>> ParseNextPage();
+    Task<int> GetTotalPages();
+    Task<List<SroMemberDto>> Parse(int page);
 }

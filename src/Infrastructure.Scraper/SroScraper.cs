@@ -32,8 +32,20 @@ public class SroScraper : ISroScraper
         }
     }
 
+    public async Task<int> GetTotalPages()
+    {
+        var document = await _web.LoadFromWebAsync(_baseUrl);
+        var totalPages = document.DocumentNode.SelectNodes("//ul[@class='pagination']//a")
+            .Select(n => n.InnerText)
+            .Skip(4)
+            .First();
+
+        return int.Parse(totalPages);
+    }
+
     private async Task<List<ScrappedSroMemberDto>> ScrapSroTable()
     {
+        await GetTotalPages();
         var document = await _web.LoadFromWebAsync(ConfigureUrl());
 
         var rows = document.DocumentNode
@@ -47,18 +59,12 @@ public class SroScraper : ISroScraper
         var scrappedMembers = new List<ScrappedSroMemberDto>();
         foreach (var row in rows.SelectNodes("//tr").Skip(2))
         {
-            var item = new List<string>();
-            
+            var items = new List<string>();
             foreach (HtmlNode cell in row.SelectNodes("th|td")) {
-                item.Add(cell.InnerText);
+                items.Add(cell.InnerText);
             }
 
-            var member = new ScrappedSroMemberDto(
-                item[0],
-                item[1],
-                item[2]
-            );
-            
+            var member = new ScrappedSroMemberDto(items[0], items[1], long.Parse(items[2]));
             scrappedMembers.Add(member);
         }
 
@@ -67,7 +73,7 @@ public class SroScraper : ISroScraper
 
     private string ConfigureUrl()
     {
-        return "https://reestr.nostroy.ru/reestr?m.fulldescription=&m.shortdescription=&m.inn=&m.ogrnip=&bms.id=1&bmt.id=&u.registrationnumber=";
+        return $"{_baseUrl}&page={_page}";
     }
 
     private static Exception HandleException(Exception ex)
