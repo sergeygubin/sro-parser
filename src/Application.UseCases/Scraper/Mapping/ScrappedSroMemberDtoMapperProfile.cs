@@ -4,10 +4,10 @@ using SroParser.Application.UseCases.SroMember.Dto;
 
 namespace SroParser.Application.UseCases.Scraper.Mapping;
 
-public class ScrappedSroMemberDtoMapperProfile : Profile
+public class ScrapedSroMemberDtoMapperProfile : Profile
 {
-    public ScrappedSroMemberDtoMapperProfile()
+    public ScrapedSroMemberDtoMapperProfile()
     {
-        CreateMap<ScrappedSroMemberDto, SroMemberDto>();
+        CreateMap<ScrapedSroMemberDto, SroMemberDto>();
     }
 }

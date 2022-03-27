@@ -6,6 +6,6 @@ namespace SroParser.Application.Abstraction;
 public interface ISroScraper
 {
     void Configure(SroScraperParameters parameters);
-    Task<List<ScrappedSroMemberDto>> ScrapSroMembers();
+    Task<List<ScrapedSroMemberDto>> ScrapSroMembers();
     Task<int> GetTotalPages();
 }

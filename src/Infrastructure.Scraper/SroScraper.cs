@@ -20,7 +20,7 @@ public class SroScraper : ISroScraper
         _page = config.Page;
     }
     
-    public Task<List<ScrappedSroMemberDto>> ScrapSroMembers()
+    public Task<List<ScrapedSroMemberDto>> ScrapSroMembers()
     {
         try
         {
@@ -43,7 +43,7 @@ public class SroScraper : ISroScraper
         return int.Parse(totalPages);
     }
 
-    private async Task<List<ScrappedSroMemberDto>> ScrapSroTable()
+    private async Task<List<ScrapedSroMemberDto>> ScrapSroTable()
     {
         await GetTotalPages();
         var document = await _web.LoadFromWebAsync(ConfigureUrl());
@@ -56,7 +56,7 @@ public class SroScraper : ISroScraper
             throw new NothingToScrapException();
         }
         
-        var scrappedMembers = new List<ScrappedSroMemberDto>();
+        var scrapedMembers = new List<ScrapedSroMemberDto>();
         foreach (var row in rows.SelectNodes("//tr").Skip(2))
         {
             var items = new List<string>();
@@ -64,11 +64,11 @@ public class SroScraper : ISroScraper
                 items.Add(cell.InnerText);
             }
 
-            var member = new ScrappedSroMemberDto(items[0], items[1], long.Parse(items[2]));
-            scrappedMembers.Add(member);
+            var member = new ScrapedSroMemberDto(items[0], items[1], long.Parse(items[2]));
+            scrapedMembers.Add(member);
         }
 
-        return scrappedMembers;
+        return scrapedMembers;
     }
 
     private string ConfigureUrl()

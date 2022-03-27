@@ -36,8 +36,8 @@ public class SroMembersParser : ISroParser
     public async Task<List<SroMemberDto>> Parse(int page)
     {
         ReconfigureScraper(page);
-        var scrappedMembers = await _sroScraper.ScrapSroMembers();
+        var scrapedMembers = await _sroScraper.ScrapSroMembers();
         
-        return _mapper.Map<List<ScrappedSroMemberDto>, List<SroMemberDto>>(scrappedMembers);
+        return _mapper.Map<List<ScrapedSroMemberDto>, List<SroMemberDto>>(scrapedMembers);
     }
 }

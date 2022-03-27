@@ -7,6 +7,6 @@ public static class UseCasesBindings
 {
     public static void AddUseCases(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(ScrappedSroMemberDtoMapperProfile));
+        services.AddAutoMapper(typeof(ScrapedSroMemberDtoMapperProfile));
     }
 }
