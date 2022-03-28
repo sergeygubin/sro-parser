@@ -9,4 +9,15 @@ services:
       dockerfile: ./src/Hosting.Web/Dockerfile
     ports:
       - "8080:80"
-  
+# Connection test
+  mysql:
+    image: mariadb:10.0
+    container_name: icrps-mysql
+    volumes:
+      - ./data/mysql_data_dir:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=drupal
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      

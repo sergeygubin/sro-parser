@@ -8,8 +8,11 @@ builder.Services.ConnectToDatabase(builder.Configuration.GetConnectionString("De
 
 var contextFactory = new DesignTimeDbContextFactory();
 var context = contextFactory.CreateDbContext(new string[] {});
-context.Database.Migrate();
-                
+if (context.Database.GetPendingMigrations().Any())
+{
+    context.Database.Migrate();
+}
+
 var appliedMigrations = context.Database.GetAppliedMigrations().ToArray();
 Console.WriteLine(string.Join("\n", appliedMigrations));
 
