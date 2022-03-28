@@ -1,6 +1,6 @@
 using System.Reflection;
-using Infrastructure.Persistence;
 using Microsoft.OpenApi.Models;
+using Migrations;
 using SroParser.Application.UseCases;
 using SroParser.Infrastructure;
 
