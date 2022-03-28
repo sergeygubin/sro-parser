@@ -11,10 +11,7 @@ public class SroMemberService : ISroMemberService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ISroMembersFetcher _fetcher;
-    public SroMemberService(
-        IUnitOfWork unitOfWork,
-        ISroMembersFetcher sroMembersFetcher
-        )
+    public SroMemberService(IUnitOfWork unitOfWork, ISroMembersFetcher sroMembersFetcher)
     {
         _unitOfWork = unitOfWork;
         _fetcher = sroMembersFetcher;

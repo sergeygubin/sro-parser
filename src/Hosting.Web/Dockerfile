@@ -13,9 +13,11 @@ COPY ["src/Application.UseCases/*.csproj", "Application.UseCases/"]
 COPY ["src/Application.Common/*.csproj", "Application.Common/"]
 COPY ["src/Infrastructure/*.csproj", "Infrastructure/"]
 COPY ["src/Infrastructure.Services/*.csproj", "Infrastructure.Services/"]
+COPY ["src/Infrastructure.Repositories/*.csproj", "Infrastructure.Repositories/"]
 COPY ["src/Infrastructure.Parser/*.csproj", "Infrastructure.Parser/"]
 COPY ["src/Infrastructure.Scraper/*.csproj", "Infrastructure.Scraper/"]
 COPY ["src/Infrastructure.Persistence/*.csproj", "Infrastructure.Persistence/"]
+COPY ["src/Migrations/*.csproj", "Migrations/"]
 RUN dotnet restore "Hosting.Web/Hosting.Web.csproj"
 COPY src/ .
 

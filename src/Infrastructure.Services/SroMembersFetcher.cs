@@ -10,9 +10,7 @@ public class SroMembersFetcher : ISroMembersFetcher
     private readonly ILogger<SroMembersFetcher> _logger;
     private readonly ISroParser _sroParser;
 
-    public SroMembersFetcher(
-        ILogger<SroMembersFetcher> logger,
-        ISroParser sroParser)
+    public SroMembersFetcher(ILogger<SroMembersFetcher> logger, ISroParser sroParser)
     {
         _logger = logger;
         _sroParser = sroParser;

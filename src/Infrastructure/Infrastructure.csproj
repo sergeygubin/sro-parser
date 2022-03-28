@@ -11,6 +11,7 @@
       <ProjectReference Include="..\Application.Abstraction\Application.Abstraction.csproj" />
       <ProjectReference Include="..\Infrastructure.Parser\Infrastructure.Parser.csproj" />
       <ProjectReference Include="..\Infrastructure.Persistence\Infrastructure.Persistence.csproj" />
+      <ProjectReference Include="..\Infrastructure.Repositories\Infrastructure.Repositories.csproj" />
       <ProjectReference Include="..\Infrastructure.Services\Infrastructure.Services.csproj" />
     </ItemGroup>
 

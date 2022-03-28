@@ -17,7 +17,7 @@ public class SroMemberController
     }
 
     /// <summary>
-    /// Получает и сохраняет всех текущих членов СРО из https://reestr.nostroy.ru/reestr
+    /// Обновляет в базе всех текущих членов СРО, подтягивая с https://reestr.nostroy.ru/reestr
     /// </summary>
     /// <returns></returns>
     [HttpGet("update-sro-members")]

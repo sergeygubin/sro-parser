@@ -11,16 +11,9 @@ public static class InfrastructurePersistenceExtensions
         services.AddDbContext<SroParserDbContext>(options =>
             ConfigureMigrationConnection(options, connectionString));
     }
-    
-    internal static void ConfigureMigrationConnection(this DbContextOptionsBuilder options, string connectionString)
-    {
-    }
 
-    internal static IConfiguration GetConfiguration()
+    private static void ConfigureMigrationConnection(this DbContextOptionsBuilder options, string connectionString)
     {
-        return new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
+        
     }
 }
