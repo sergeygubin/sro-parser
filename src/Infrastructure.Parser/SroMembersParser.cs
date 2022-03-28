@@ -16,15 +16,9 @@ public class SroMembersParser : ISroParser
         _mapper = mapper;
         _sroScraper = sroScraper;
         
-        ReconfigureScraper(1);
-    }
-
-    private void ReconfigureScraper(int page)
-    {
         _sroScraper.Configure(new SroScraperParameters
         {
             BaseUrl = "https://reestr.nostroy.ru/reestr?m.fulldescription=&m.shortdescription=&m.inn=&m.ogrnip=&bms.id=1&bmt.id=&u.registrationnumber=",
-            Page = page
         });
     }
 
@@ -35,8 +29,7 @@ public class SroMembersParser : ISroParser
 
     public async Task<List<SroMemberDto>> Parse(int page)
     {
-        ReconfigureScraper(page);
-        var scrapedMembers = await _sroScraper.ScrapSroMembers();
+        var scrapedMembers = await _sroScraper.ScrapSroMembers(page);
         
         return _mapper.Map<List<ScrapedSroMemberDto>, List<SroMemberDto>>(scrapedMembers);
     }

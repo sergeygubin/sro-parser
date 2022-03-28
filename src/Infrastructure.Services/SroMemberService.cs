@@ -14,19 +14,18 @@ public class SroMemberService : ISroMemberService
     private readonly IUnitOfWork _unitOfWork;
     private readonly ISroMembersFetcher _fetcher;
     public SroMemberService(
+        ILogger<SroMemberService> logger,
         IUnitOfWork unitOfWork, 
-        ISroMembersFetcher sroMembersFetcher, 
-        ILogger<SroMemberService> logger)
+        ISroMembersFetcher sroMembersFetcher)
     {
+        _logger = logger;
         _unitOfWork = unitOfWork;
         _fetcher = sroMembersFetcher;
-        _logger = logger;
     }
 
     public async Task UpdateSroMembersFromRemote()
     {
         await _fetcher.UpdateSroMembersFromRemote();
-
         _logger.LogInformation("Commiting to database...");
         
         try

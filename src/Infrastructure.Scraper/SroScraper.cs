@@ -10,26 +10,12 @@ namespace SroParser.Infrastructure.Scraper;
 public class SroScraper : ISroScraper
 {
     private string _baseUrl = "";
-    private int _page = 0;
     
     private readonly HtmlWeb _web = new();
 
     public void Configure(SroScraperParameters config)
     {
         _baseUrl = config.BaseUrl;
-        _page = config.Page;
-    }
-    
-    public Task<List<ScrapedSroMemberDto>> ScrapSroMembers()
-    {
-        try
-        {
-            return ScrapSroTable();
-        }
-        catch(Exception ex)
-        {
-            throw HandleException(ex);
-        }
     }
 
     public async Task<int> GetTotalPages()
@@ -42,11 +28,23 @@ public class SroScraper : ISroScraper
 
         return int.Parse(totalPages);
     }
+    
+    public Task<List<ScrapedSroMemberDto>> ScrapSroMembers(int page)
+    {
+        try
+        {
+            return ScrapSroTable(page);
+        }
+        catch(Exception ex)
+        {
+            throw HandleException(ex);
+        }
+    }
 
-    private async Task<List<ScrapedSroMemberDto>> ScrapSroTable()
+    private async Task<List<ScrapedSroMemberDto>> ScrapSroTable(int page)
     {
         await GetTotalPages();
-        var document = await _web.LoadFromWebAsync(ConfigureUrl());
+        var document = await _web.LoadFromWebAsync(ConfigureUrl(page));
 
         var rows = document.DocumentNode
             .SelectSingleNode("//table//tbody");
@@ -71,9 +69,9 @@ public class SroScraper : ISroScraper
         return scrapedMembers;
     }
 
-    private string ConfigureUrl()
+    private string ConfigureUrl(int page)
     {
-        return $"{_baseUrl}&page={_page}";
+        return $"{_baseUrl}&page={page}";
     }
 
     private static Exception HandleException(Exception ex)

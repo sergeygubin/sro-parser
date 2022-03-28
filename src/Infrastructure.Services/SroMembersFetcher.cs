@@ -39,15 +39,15 @@ public class SroMembersFetcher : ISroMembersFetcher
                 
                 var sroMembersDto =  await _sroParser.Parse(page);
                 var sroMembers = _mapper.Map<IEnumerable<SroMemberDto>, IEnumerable<SroMember>>(sroMembersDto);
+                
                 await _repository.SaveRange(sroMembers);
             }
             catch(Exception ex)
             {
                 _logger.LogError($"Failed to parse at {page} page. Details: {ex.Message}");
-                break;
             }
         }
         
-        _logger.LogInformation("Parsing is finished!");
+        _logger.LogInformation("Parsing is finished.");
     }
 }
