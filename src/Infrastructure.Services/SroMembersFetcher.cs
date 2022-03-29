@@ -38,8 +38,8 @@ public class SroMembersFetcher : ISroMembersFetcher
                 _logger.LogInformation($"Parse {page}/{totalPages} page");
                 
                 var sroMembersDto =  await _sroParser.Parse(page);
-                var sroMembers = _mapper.Map<IEnumerable<SroMemberDto>, IEnumerable<SroMember>>(sroMembersDto);
-                
+                var sroMembers = _mapper.Map<List<SroMemberDto>, List<SroMember>>(sroMembersDto);
+
                 await _repository.SaveRange(sroMembers);
             }
             catch(Exception ex)

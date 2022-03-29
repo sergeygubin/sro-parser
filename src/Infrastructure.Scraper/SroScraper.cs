@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.ComTypes;
+using System.Web;
 using HtmlAgilityPack;
 using SroParser.Application.Abstraction;
 using SroParser.Application.UseCases.Scraper;
@@ -54,19 +55,18 @@ public class SroScraper : ISroScraper
             throw new NothingToScrapException();
         }
         
-        var scrapedMembers = new List<ScrapedSroMemberDto>();
+        var scrapedSroMembers = new List<ScrapedSroMemberDto>();
         foreach (var row in rows.SelectNodes("//tr").Skip(2))
         {
-            var items = new List<string>();
-            foreach (HtmlNode cell in row.SelectNodes("th|td")) {
-                items.Add(cell.InnerText);
-            }
+            var items = row.SelectNodes("th|td")
+                .Select(cell => HttpUtility.HtmlDecode(cell.InnerText))
+                .ToList();
 
             var member = new ScrapedSroMemberDto(items[0], items[1], long.Parse(items[2]));
-            scrapedMembers.Add(member);
+            scrapedSroMembers.Add(member);
         }
 
-        return scrapedMembers;
+        return scrapedSroMembers;
     }
 
     private string ConfigureUrl(int page)
